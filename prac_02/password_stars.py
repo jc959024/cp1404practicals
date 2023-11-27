@@ -26,7 +26,7 @@ def get_password():
     while not valid_password:
         password = input("Enter a password: ")
         if len(password) < MIN_PASSWORD_LENGTH:
-            print(f"Password should be at least {MIN_PASSWORD_LENGTH} characters long. Try again.")
+            print(f"Password should be at ，least {MIN_PASSWORD_LENGTH} characters long. Try again.")
         else:
             valid_password = True
     return password
