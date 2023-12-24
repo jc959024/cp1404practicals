@@ -1,0 +1,21 @@
+BoxLayout:
+    orientation: 'vertical'
+#    orientation: 'horizontal'
+    Button:
+        text: 'Clear'
+        text:'Delete input name'
+        on_press: app.delete_name()
+
+    TextInput:
+        id: input_name
+        text: ''
+        font_size: 24
+
+
+    Button:
+        text: 'Greet'
+        on_press: app.handle_greet()
+    Label:
+        id: output_label
+        text: 'Enter your name'
+        color: (1, 1, 0, 1)
