@@ -1,7 +1,7 @@
 """
 Name:HuayuZhong
 Date started:24/12
-GitHub URL:https://github.com/jc959024/cp1404practicals
+GitHub URL:https://github.com/jc959024/cp1404practicals/tree/ass1
 """
 
 import csv
