@@ -1,7 +1,7 @@
 """
 Name:HuayuZhong
 Date started:24/12
-GitHub URL:https://github.com/cp1404-students/a1-jc959024
+GitHub URL:https://github.com/jc959024/cp1404practicals
 """
 
 import csv

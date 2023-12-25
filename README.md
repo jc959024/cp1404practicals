@@ -3,7 +3,7 @@
 
 Assignment 1 for CP1404/CP5632, IT@JCU
 
-By: _Your Name_
+By: _HuayuZhong_
 
 This repo contains starter files including a Python file and two CSV files.  
 `songs.csv` is a data file for you to use.  
@@ -16,8 +16,8 @@ the `answer...` parts).
 
 1. How long did the entire project (assignment 1) take you?
 
-   > answer...
+   > 3 hours
 
 2. What do you plan to do differently in your development process for assignment 2?
 
-   > answer...
+   > For my next assignment, I aim to focus on thorough planning and requirement analysis before starting to code, improve code quality by using advanced Python features and best practices, enhance testing and debugging processes, manage my time more efficiently and maintain better documentation and version control. Additionally, I'll actively seek feedback and regularly evaluate my progress and the quality of my work.
