@@ -35,6 +35,7 @@ def main():
     print(f"{len(songs)} songs saved to {SONG_FILE}")
     print("Have a nice day :)")
 
+
 def load_songs():
     songs = []
     try:
