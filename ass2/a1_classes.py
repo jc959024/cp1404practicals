@@ -1,87 +1,107 @@
 """..."""
-"""
-Name:HuayuZhong
-Date started:24/12
-GitHub URL:https://github.com/jc959024/cp1404practicals/tree/ass1
-"""
+# then update to use Song class
+# Use SongCollection class if you want to
+
+from song import Song
+from songcollection import SongCollection
+my_song_collection = SongCollection()
+#Song
+
 
 import csv
 
-SONG_FILE = "songs.csv"
-MENU = """Menu:
-L - List songs
-A - Add new song
-C - Complete a song
-Q - Quit"""
+#Song
+class Song:
+    def __init__(self, title, artist, year, is_learned=False):
+        self.title = title
+        self.artist = artist
+        self.year = year
+        self.is_learned = is_learned
 
-# Main function
-def main():
-    print("Songs To Learn 1.0 - by [HuayuZhong]")
-    songs = load_songs()
-    print(f"{len(songs)} songs loaded")
+    def __str__(self):
+        learned_marker = "*" if self.is_learned else ""
+        return f"{learned_marker} {self.title} - {self.artist} ({self.year})"
 
-    choice = input(MENU + "\n>>> ").upper()
-    while choice != 'Q':
-        if choice == 'L':
-            list_songs(songs)
-        elif choice == 'A':
-            add_song(songs)
-        elif choice == 'C':
-            complete_song(songs)
-        else:
-            print("Invalid choice")
-        choice = input(MENU + "\n>>> ")
+#SongList
+class SongList:
+    def __init__(self, filename):
+        self.filename = filename
+        self.songs = []
+        self.load_songs()
 
-    save_songs(songs)
-    print(f"{len(songs)} songs saved to {SONG_FILE}")
-    print("Have a nice day :)")
-
-
-def load_songs():
-    songs = []
-    try:
-        with open(SONG_FILE, 'r', newline='') as file:
-            reader = csv.DictReader(file)
+    def load_songs(self):
+        with open(self.filename, mode='r', newline='', encoding='utf-8') as file:
+            reader = csv.reader(file)
             for row in reader:
-                songs.append(row)
-    except FileNotFoundError:
-        print("No existing song file found. A new one will be created.")
-    return songs
+                title, artist, year, is_learned = row
+                self.songs.append(Song(title, artist, int(year), is_learned == 'True'))
 
-# Function to list songs
-def list_songs(songs):
-    print("List of songs:")
-    for i, song in enumerate(songs, 1):
-        status = 'learned' if song['learned'] == 'Yes' else 'unlearned'
-        print(f"{i}. {song['title']} by {song['artist']} ({song['year']}) - {status}")
+    def save_songs(self):
+        with open(self.filename, mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            for song in self.songs:
+                writer.writerow([song.title, song.artist, song.year, song.is_learned])
+#unknown error after
 
-# Function to add a new song
-def add_song(songs):
-    title = input("Title of the new song: ")
-    artist = input("Artist: ")
-    year = input("Year: ")
-    songs.append({'title': title, 'artist': artist, 'year': year, 'learned': 'No'})
-    print("New song added!")
+    def add_song(self, title, artist, year):
+        self.songs.append(Song(title, artist, year))
 
-# Function to mark a song as learned
-def complete_song(songs):
-    list_songs(songs)
-    song_number = int(input("Enter the number of the song to mark as learned: "))
-    if 0 < song_number <= len(songs):
-        songs[song_number - 1]['learned'] = 'Yes'
-        print(f"{songs[song_number - 1]['title']} marked as learned.")
-    else:
-        print("Invalid song number.")
+    def complete_song(self, song_number):
+        if 0 < song_number <= len(self.songs):
+            song = self.songs[song_number - 1]
+            if not song.is_learned:
+                song.is_learned = True
 
-# Function to save songs to the file
-def save_songs(songs):
-    with open(SONG_FILE, 'w', newline='') as file:
-        fieldnames = ['title', 'artist', 'year', 'learned']
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
-        writer.writeheader()
-        for song in songs:
-            writer.writerow(song)
+                return f"{song.title} by {song.artist} learned"
+            else:
+                return f"You have already learned {song.title}"
+        else:
+            return "Invalid song number"
 
-# Run the program
-if __name__ == '__main__':
+    def display_songs(self):
+        self.songs.sort(key=lambda x: (x.year, x.title))
+        for i, song in enumerate(self.songs, start=1):
+
+            print(f"{i}. {song}")
+        learned_count = sum(song.is_learned for song in self.songs)
+        print(f"{learned_count} songs learned, {len(self.songs) - learned_count} songs still to learn.")
+
+def main():
+    song_list = SongList('songs.csv')
+    print("Song List 1.0 - by Zhicheng Liang")
+    print(f"{len(song_list.songs)} songs loaded.")
+    while True:
+        print("Menu:\nD - Display songs\nA - Add new song\nC - Complete a song\nQ - Quit")
+        choice = input(">>> ").upper()#notice
+        if choice == 'D':
+            song_list.display_songs()
+        elif choice == 'A':
+            title = input("Title: ").strip()
+            while not title:
+                print("Input can not be blank.")#11111
+                title = input("Title: ").strip()
+            artist = input("Artist: ").strip()
+            while not artist:
+                print("Input can not be blank.")
+                artist = input("Artist: ").strip()
+            year = input("Year: ").strip()
+            while not year.isdigit() or int(year) <= 0:
+                print("Invalid input; enter a valid number.")
+                year = input("Year: ").strip()
+            song_list.add_song(title, artist, int(year))
+            print(f"{title} by {artist} ({year}) added to song list.")
+        elif choice == 'C':
+            song_number = input("Enter the number of a song to mark as learned.\n>>> ").strip()
+            while not song_number.isdigit() or int(song_number) <= 0:
+                print("Number must be > 0.")
+                song_number = input(">>> ").strip()
+            print(song_list.complete_song(int(song_number)))
+        elif choice == 'Q':
+            song_list.save_songs()
+            print(f"{len(song_list.songs)} songs saved to songs.csv\nMake some music!")
+            break
+        else:
+            print("Invalid menu choice")
+#should be maintain
+if __name__ == "__main__":
     main()
