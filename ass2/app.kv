@@ -1,0 +1,67 @@
+<SongListApp>:
+    title_input: title_input
+    artist_input: artist_input
+    year_input: year_input
+    status_label: status_label
+    right_layout: right_layout
+    sort_by_spinner: sort_by_spinner
+
+    BoxLayout:
+        orientation: 'horizontal'
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: 0.3
+
+            Spinner:
+                id: sort_by_spinner
+                text: 'Sort by:'
+                values: ['Artist', 'Title', 'Year', 'Learned']
+                size_hint_y: None
+                height: 50
+
+            TextInput:
+                id: title_input
+                multiline: False
+                hint_text: 'Title'
+                size_hint_y: None
+                height: 50
+
+            TextInput:
+                id: artist_input
+                multiline: False
+                hint_text: 'Artist'
+                size_hint_y: None
+                height: 50
+
+            TextInput:
+                id: year_input
+                multiline: False
+                hint_text: 'Year'
+                size_hint_y: None
+                height: 50
+
+            Button:
+                text: 'Add Song'
+                size_hint_y: None
+                height: 50
+                on_release: app.add_song()
+
+            Button:
+                text: 'Clear'
+                size_hint_y: None
+                height: 50
+                on_release: app.clear_fields()
+
+        GridLayout:
+            id: right_layout
+            cols: 1
+            size_hint_x: 0.7
+
+            Label:
+                id: status_label
+                size_hint_y: None
+                height: 50
+                text: 'Welcome to SongListApp!'
+
+
