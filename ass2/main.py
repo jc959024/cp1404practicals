@@ -1,8 +1,8 @@
 """
-Name:Huayu Zhong
+Name:HuayuZhong
 Date Started:20/1/2024
 Brief Project Description: songlist
-GitHub URL:
+GitHub URL: https://github.com/JCUS-CP1404/cp1404-song-list-assignment-2-jc959024
 """
 
 from kivy.app import App

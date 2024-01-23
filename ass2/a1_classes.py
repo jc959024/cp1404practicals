@@ -1,6 +1,4 @@
 """..."""
-# then update to use Song class
-# Use SongCollection class if you want to
 
 from song import Song
 from songcollection import SongCollection
@@ -41,7 +39,6 @@ class SongList:
             writer = csv.writer(file)
             for song in self.songs:
                 writer.writerow([song.title, song.artist, song.year, song.is_learned])
-#unknown error after
 
     def add_song(self, title, artist, year):
         self.songs.append(Song(title, artist, year))
@@ -102,6 +99,7 @@ def main():
             break
         else:
             print("Invalid menu choice")
-#should be maintain
+
 if __name__ == "__main__":
+
     main()
